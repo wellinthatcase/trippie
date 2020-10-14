@@ -8,7 +8,12 @@ interface TrippieCfg {
 };
 
 class TrippieClient extends Discord.Client {
-    protected cfg: TrippieCfg;
+    protected cfg: TrippieCfg; 
+
+    constructor(config: TrippieCfg) {
+        super();
+        this.cfg = config; 
+    }
 
     fmtuptime(): string {
         return humanize(this.uptime);
