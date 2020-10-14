@@ -14,8 +14,4 @@ class TrippieClient extends discord.Client {
         super();
         this.cfg = config; 
     }
-
-    fmtuptime(): string {
-        return humanize(this.uptime);
-    }
 }
