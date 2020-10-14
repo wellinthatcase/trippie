@@ -1,4 +1,4 @@
-import * as Discord from "discord.js"; 
+import * as discord from "discord.js"; 
 import * as humanize from "humanize-duration";
 
 interface TrippieCfg {
@@ -7,7 +7,7 @@ interface TrippieCfg {
     owner_id: number;
 };
 
-class TrippieClient extends Discord.Client {
+class TrippieClient extends discord.Client {
     protected cfg: TrippieCfg; 
 
     constructor(config: TrippieCfg) {
