@@ -1,0 +1,25 @@
+{
+  "name": "trippie",
+  "version": "0.1.0",
+  "description": "Just another Discord bot. ",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wellinthatcase/trippie.git"
+  },
+  "keywords": [
+    "discord"
+  ],
+  "author": "wellinthatcase",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wellinthatcase/trippie/issues"
+  },
+  "homepage": "https://github.com/wellinthatcase/trippie#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
+}
