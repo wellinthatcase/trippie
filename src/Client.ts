@@ -1,5 +1,4 @@
 import * as discord from "discord.js"; 
-import * as humanize from "humanize-duration";
 
 interface TrippieCfg {
     token: string;
