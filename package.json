@@ -4,6 +4,7 @@
   "description": "Just another Discord bot. ",
   "main": "main.js",
   "scripts": {
+    "start": "tsc --resolveJsonModule --esModuleInterop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
