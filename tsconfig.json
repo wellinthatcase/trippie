@@ -1,6 +1,7 @@
 {
     "compilerOptions": { 
         "target": "ES2020",
+        "outDir": "./dist",
         "module": "CommonJS",
         "skipLibCheck": true, 
         "esModuleInterop": true,
