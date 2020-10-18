@@ -2,8 +2,8 @@ import * as discord from "discord.js";
 
 export interface TrippieCfg {
     token: string;
-    bot_id: number; 
-    owner_id: number;
+    botId: number; 
+    ownerId: number;
 };
 
 export class TrippieClient extends discord.Client {
