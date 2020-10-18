@@ -1,11 +1,21 @@
 import * as discord from "discord.js"; 
 
+/**
+ * The type used for a TrippieClient config. 
+ * 
+ * @property token - The token of the TrippieClient bot. 
+ * @property botId - The snowflake identification number of the bot. 
+ * @property ownerId - The snowflake identification number of who owns the application. 
+ */
 export interface TrippieCfg {
-    token: string;
-    botId: number; 
-    ownerId: number;
+    readonly token: string;
+    readonly botId: number; 
+    readonly ownerId: number;
 };
 
+/**
+ * The essential class for the bot. 
+ */
 export class TrippieClient extends discord.Client {
     protected cfg: TrippieCfg; 
 
