@@ -4,6 +4,7 @@
         "outDir": "./dist",
         "module": "CommonJS",
         "skipLibCheck": true, 
+        "removeComments": true,
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "moduleResolution": "node"
