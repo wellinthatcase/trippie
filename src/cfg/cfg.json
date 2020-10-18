@@ -1,7 +1,7 @@
 {
     "token": null,
-    "botId": 767425062533595207,
-    "ownerId": 700091773695033505,
+    "botId": null,
+    "ownerId": null,
     "postgreUrlUser": null,
     "postgreUrlPass": null,
     "postgreUrlDomain": null
