@@ -39,7 +39,9 @@ export class TrippieClient extends DiscordClient {
         const postgreDomain: string = this.cfg.postgreUrlDomain; 
         this.postgre = new PostgreClient(`postgre://${postgreUser}:${postgrePass}@${postgreDomain}/${postgreUser}`);
 
-        this.postgre.connect().then(() => { console.log(`Connected into PostgreSQL DB "${postgreUser}"`); });
+        this.postgre.connect().then(() => { 
+            console.log(`Connected into PostgreSQL DB "${postgreUser}"`); 
+        });
 
         this.login(this.cfg.token).then(() => {
             console.log(`Logged into ${this.user.username} (${this.user.id})`);
