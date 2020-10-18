@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Just another Discord bot.",
   "scripts": {
-    "start": "tsc && node src/Start.js",
+    "start": "tsc && node dist/Start.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
