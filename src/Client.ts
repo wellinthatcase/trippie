@@ -1,4 +1,4 @@
-import * as discord from "discord.js"; 
+import { Client as DiscordClient } from "discord.js"; 
 
 /**
  * The type used for a TrippieClient config. 
@@ -16,7 +16,7 @@ export interface TrippieCfg {
 /**
  * The essential class for the bot. 
  */
-export class TrippieClient extends discord.Client {
+export class TrippieClient extends DiscordClient {
     protected cfg: TrippieCfg; 
 
     constructor(config: TrippieCfg) {
