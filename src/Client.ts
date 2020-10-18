@@ -13,7 +13,7 @@ export class TrippieClient extends discord.Client {
         super();
         this.cfg = config; 
         this.login(this.cfg.token).then(() => {
-            console.log(`Successfully logged in as ${this.user.username} (${this.user.id})`);
+            console.log(`Successfully logged into ${this.user.username} (${this.user.id})`);
         }, err => { console.error(err); });
     }
 }
