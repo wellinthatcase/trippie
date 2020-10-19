@@ -1,3 +1,4 @@
+import { log, LogLevel } from "./Logger"; 
 import { Client as PostgreClient } from "pg";
 import { Client as DiscordClient } from "discord.js"; 
 
@@ -40,11 +41,11 @@ export class TrippieClient extends DiscordClient {
         this.postgre = new PostgreClient(`postgre://${postgreUser}:${postgrePass}@${postgreDomain}/${postgreUser}`);
 
         this.postgre.connect().then(() => { 
-            console.log(`Connected into PostgreSQL DB "${postgreUser}"`); 
+            log(`Connected into PostgreSQL DB "${postgreUser}"`); 
         });
 
         this.login(this.cfg.token).then(() => {
-            console.log(`Logged into ${this.user.username} (${this.user.id})`);
+            log(`Logged into ${this.user.username} (${this.user.id})`); 
         }, err => { 
             console.error(err); 
         });
