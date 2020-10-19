@@ -1,31 +1,74 @@
-const red: string = "\x1b[31m";
-const green: string = "\x1b[32m";
-const yellow: string = "\x1b[33m";
-const resetter: string = "\x1b[0m";
-
-export const enum LogLevel {
+/**
+ * Enum for log level options. 
+ * 
+ * @property Success - Will output a green color. 
+ * @property Warning - Will output a yellow color. 
+ * @property Exception - WIll output a red color. 
+ */
+export const enum LLevel {
     Success,
     Warning,
     Exception
 };
 
 /**
- * Log to the standard output with one of the optional colors. 
+ * The standard config for the Logger class. 
  * 
- * @param text - The text to output. 
- * @param log_level - The LogLevel enum selection. Success is green, Warning yellow, and Exception red. 
+ * @property alwaysResetter - Always reset the foreground after logging. 
+ * @property defaultResetter - The default resetter to use. White by default.
+ * @property defaultSuccessFg - The default foreground when the LLevel.Success option is used.  
+ * @property defaultWarningFg - The default foreground when the LLevel.Warning option is used.  
+ * @property defaultExceptiFg - The default foreground when the LLevel.Exception option is used.  
  */
-export function log(text: string, log_level?: LogLevel | undefined): void {
-    const timestamp: string = new Date()
-        .toLocaleDateString("en-US", { hour: "numeric", minute: "numeric", hour12: true });
+export interface ILogger {
+    alwaysResetter?: boolean; 
+    defaultResetter?: string; 
+    defaultSuccessFg?: string; 
+    defaultWarningFg?: string;
+    defaultExceptiFg?: string; 
+};
 
-    const content: string = `[${timestamp}]: ${text}${resetter}`; 
-    switch (log_level) {
-        case LogLevel.Exception:
-            console.log(`${red}${content}`);
-        case LogLevel.Warning: 
-            console.log(`${yellow}${content}`);
-        case LogLevel.Success || undefined: 
-            console.log(`${green}${content}`);
-    }; 
-}; 
+/**
+ * The main logger class. Holds all configuration and the `log` method. 
+ * 
+ * @property cfg - An ILogger config. 
+ * @method log - Log a string to standard output with one of the optional LogLevel selections. 
+ */
+export class Logger {
+    public cfg: ILogger;
+    
+    constructor(cfg?: ILogger) {
+        this.cfg = { 
+            "alwaysResetter": cfg.alwaysResetter     || true, 
+            "defaultResetter": cfg.defaultResetter   || "\x1b[0m",
+            "defaultSuccessFg": cfg.defaultSuccessFg || "\x1b[32m",
+            "defaultWarningFg": cfg.defaultWarningFg || "\x1b[33m",
+            "defaultExceptiFg": cfg.defaultExceptiFg || "\x1b[31m"
+        } as ILogger; 
+    };
+
+    log(text: string, log_level?: LLevel | undefined): void {
+        if (this.cfg.alwaysResetter) {
+            var resetter: string = this.cfg.defaultResetter;
+        } else {
+            var resetter: string = "";
+        };
+
+        const timestamp: string = new Date()
+            .toLocaleDateString("en-US", { hour: "numeric", minute: "numeric", hour12: true });
+
+        const warning: string = this.cfg.defaultWarningFg;
+        const success: string = this.cfg.defaultSuccessFg;
+        const excepti: string = this.cfg.defaultExceptiFg;
+        const content: string = `[${timestamp}]: ${text}${resetter}`; 
+
+        switch (log_level) {
+            case LLevel.Exception:
+                console.log(`${excepti}${content}`);
+            case LLevel.Warning: 
+                console.log(`${warning}${content}`);
+            case LLevel.Success || undefined: 
+                console.log(`${success}${content}`);
+        }; 
+    };
+};
