@@ -7,16 +7,16 @@ const yellow = "\x1b[33m";
 const resetter = "\x1b[0m";
 ;
 function log(text, log_level) {
-    const text_with_resetter = `${text}${resetter}`;
+    const timestamp = new Date()
+        .toLocaleDateString("en-US", { hour: "numeric", minute: "numeric", hour12: true });
+    const content = `[${timestamp}]: ${text}${resetter}`;
     switch (log_level) {
         case 2:
-            console.log(`${red}${text_with_resetter}`);
-            break;
+            console.log(`${red}${content}`);
         case 1:
-            console.log(`${yellow}${text_with_resetter}`);
-            break;
+            console.log(`${yellow}${content}`);
         case 0 || undefined:
-            console.log(`${green}${text_with_resetter}`);
+            console.log(`${green}${content}`);
     }
     ;
 }
