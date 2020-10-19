@@ -16,10 +16,10 @@ export const enum LogLevel {
  * @param log_level - The LogLevel enum selection. Success is green, Warning yellow, and Exception red. 
  */
 export function log(text: string, log_level?: LogLevel | undefined): void {
-    const content: string = `[${timestamp}]: ${text}${resetter}`; 
-    var timestamp: string = new Date()
+    const timestamp: string = new Date()
         .toLocaleDateString("en-US", { hour: "numeric", minute: "numeric", hour12: true });
 
+    const content: string = `[${timestamp}]: ${text}${resetter}`; 
     switch (log_level) {
         case LogLevel.Exception:
             console.log(`${red}${content}`);
