@@ -15,6 +15,8 @@ class TrippieClient extends discord_js_1.Client {
         this.postgre = new pg_1.Client(`postgre://${postgreUser}:${postgrePass}@${postgreDomain}/${postgreUser}`);
         this.postgre.connect().then(() => {
             Logger_1.log(`Connected into PostgreSQL DB "${postgreUser}"`);
+        }, err => {
+            console.error(err);
         });
         this.login(this.cfg.token).then(() => {
             Logger_1.log(`Logged into ${this.user.username} (${this.user.id})`);
