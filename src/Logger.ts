@@ -21,10 +21,8 @@ export function log(text: string, log_level?: LogLevel | undefined): void {
     switch (log_level) {
         case LogLevel.Exception:
             console.log(`${red}${text_with_resetter}`);
-            break;
         case LogLevel.Warning: 
             console.log(`${yellow}${text_with_resetter}`);
-            break;
         case LogLevel.Success || undefined: 
             console.log(`${green}${text_with_resetter}`);
     }; 
