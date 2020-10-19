@@ -1,7 +1,7 @@
-const red = "\x1b[31m";
-const green = "\x1b[32m";
-const yellow = "\x1b[33m";
-const resetter = "\x1b[0m";
+const red: string = "\x1b[31m";
+const green: string = "\x1b[32m";
+const yellow: string = "\x1b[33m";
+const resetter: string = "\x1b[0m";
 
 export const enum LogLevel {
     Success,
@@ -16,7 +16,7 @@ export const enum LogLevel {
  * @param log_level - The LogLevel enum selection. Success is green, Warning yellow, and Exception red. 
  */
 export function log(text: string, log_level?: LogLevel | undefined): void {
-    const text_with_resetter = `${text}${resetter}`; 
+    const text_with_resetter: string = `${text}${resetter}`; 
 
     switch (log_level) {
         case LogLevel.Exception:
