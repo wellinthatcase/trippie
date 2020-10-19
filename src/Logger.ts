@@ -32,7 +32,7 @@ export interface ILogger {
  * The main logger class. Holds all configuration and the `log` method. 
  * 
  * @property cfg - An ILogger config. 
- * @method log - Log a string to standard output with one of the optional LogLevel selections. 
+ * @method log - Log a string to standard output with one of the optional LLevel selections. 
  */
 export class Logger {
     public cfg: ILogger;
