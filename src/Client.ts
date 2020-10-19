@@ -1,4 +1,4 @@
-import { log, LogLevel } from "./Logger"; 
+import { log } from "./Logger"; 
 import { Client as PostgreClient } from "pg";
 import { Client as DiscordClient } from "discord.js"; 
 
