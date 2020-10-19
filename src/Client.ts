@@ -1,4 +1,4 @@
-import { log } from "./Logger"; 
+import { Logger, ILogger } from "./Logger"; 
 import { Client as PostgreClient } from "pg";
 import { Client as DiscordClient } from "discord.js"; 
 
@@ -25,15 +25,18 @@ export interface TrippieCfg {
  * The essential class for the bot. 
  * 
  * @property cfg - The local config for the bot. 
+ * @property logger - The internal debug logger for the bot. 
  * @property postgre - The PostgreSQL client for the bot. It is not connected until the bot has logged in. 
  */
 export class TrippieClient extends DiscordClient {
+    protected logger: Logger; 
     protected cfg: TrippieCfg; 
-    protected postgre: PostgreClient; 
+    protected postgre: PostgreClient;
 
     constructor(config: TrippieCfg) {
         super();
         this.cfg = config; 
+        this.logger = new Logger({} as ILogger); 
 
         const postgreUser: string = this.cfg.postgreUrlUser;
         const postgrePass: string = this.cfg.postgreUrlPass;
@@ -41,13 +44,13 @@ export class TrippieClient extends DiscordClient {
         this.postgre = new PostgreClient(`postgre://${postgreUser}:${postgrePass}@${postgreDomain}/${postgreUser}`);
 
         this.postgre.connect().then(() => { 
-            log(`Connected into PostgreSQL DB "${postgreUser}"`); 
+            this.logger.log(`Connected into PostgreSQL DB "${postgreUser}"`); 
         }, err => {
             console.error(err); 
         });
 
         this.login(this.cfg.token).then(() => {
-            log(`Logged into ${this.user.username} (${this.user.id})`); 
+            this.logger.log(`Logged into ${this.user.username} (${this.user.id})`); 
         }, err => { 
             console.error(err); 
         });
