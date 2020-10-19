@@ -39,8 +39,8 @@ export class Logger {
     
     constructor(cfg?: ILogger) {
         this.cfg = { 
-            "alwaysResetter": cfg.alwaysResetter     || true, 
-            "defaultResetter": cfg.defaultResetter   || "\x1b[0m",
+            "alwaysResetter"  : cfg.alwaysResetter   || true, 
+            "defaultResetter" : cfg.defaultResetter  || "\x1b[0m",
             "defaultSuccessFg": cfg.defaultSuccessFg || "\x1b[32m",
             "defaultWarningFg": cfg.defaultWarningFg || "\x1b[33m",
             "defaultExceptiFg": cfg.defaultExceptiFg || "\x1b[31m"
