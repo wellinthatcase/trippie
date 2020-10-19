@@ -42,6 +42,8 @@ export class TrippieClient extends DiscordClient {
 
         this.postgre.connect().then(() => { 
             log(`Connected into PostgreSQL DB "${postgreUser}"`); 
+        }, err => {
+            console.error(err); 
         });
 
         this.login(this.cfg.token).then(() => {
