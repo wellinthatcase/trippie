@@ -63,7 +63,7 @@ class Logger {
         if (write === true || (write === undefined && this.cfg.alwaysLog)) {
             fs.appendFile(this.cfg.logFile, `${content}\n`, (err) => {
                 if (err) {
-                    console.error(err);
+                    throw err;
                 }
                 ;
             });
