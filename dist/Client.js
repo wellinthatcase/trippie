@@ -9,7 +9,7 @@ class TrippieClient extends discord_js_1.Client {
     constructor(config) {
         super();
         this.cfg = config;
-        this.logger = new Logger_1.Logger({});
+        this.logger = new Logger_1.Logger({ "logFile": "logs/trippie.log", "alwaysLog": true });
         const postgreUser = this.cfg.postgreUrlUser;
         const postgrePass = this.cfg.postgreUrlPass;
         const postgreDomain = this.cfg.postgreUrlDomain;
