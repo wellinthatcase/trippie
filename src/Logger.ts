@@ -1,3 +1,5 @@
+import * as fs from "fs";
+
 /**
  * Enum for log level options. 
  * 
@@ -21,6 +23,8 @@ export const enum LLevel {
  * @property defaultExceptiFg - The default foreground when the LLevel.Exception option is used.  
  */
 export interface ILogger {
+    logFile?: string; 
+    alwaysLog?: boolean; 
     alwaysResetter?: boolean; 
     defaultResetter?: string; 
     defaultSuccessFg?: string; 
@@ -41,6 +45,8 @@ export class Logger {
     
     constructor(cfg?: ILogger) {
         this.cfg = { 
+            "logFile"         : cfg.logFile          || null,
+            "alwaysLog"       : cfg.alwaysLog        || false,
             "alwaysResetter"  : cfg.alwaysResetter   || true, 
             "defaultResetter" : cfg.defaultResetter  || "\x1b[0m",
             "defaultSuccessFg": cfg.defaultSuccessFg || "\x1b[32m",
@@ -55,7 +61,7 @@ export class Logger {
      * @param text - The text to output. 
      * @param log_level - The LLevel selection to use. One of LLevel.Success, LLevel.Warning, LLevel.Exception
      */
-    log(text: string, log_level?: LLevel | undefined): void {
+    log(text: string, log_level?: LLevel, write?: boolean): void {
         if (this.cfg.alwaysResetter) {
             var resetter: string = this.cfg.defaultResetter;
         } else {
@@ -68,15 +74,24 @@ export class Logger {
         const warning: string = this.cfg.defaultWarningFg;
         const success: string = this.cfg.defaultSuccessFg;
         const excepti: string = this.cfg.defaultExceptiFg;
-        const content: string = `[${timestamp}]: ${text}${resetter}`; 
+        const content: string = `[${timestamp}]: ${text}`;
+        const resetterContent: string = `${content}${resetter}`; 
 
         switch (log_level) {
             case LLevel.Exception:
-                console.log(`${excepti}${content}`);
+                console.log(`${excepti}${resetterContent}`);
             case LLevel.Warning: 
-                console.log(`${warning}${content}`);
+                console.log(`${warning}${resetterContent}`);
             case LLevel.Success || undefined: 
-                console.log(`${success}${content}`);
+                console.log(`${success}${resetterContent}`);
+        }; 
+
+        if (write === true || (write === undefined && this.cfg.alwaysLog)) { 
+            fs.appendFile(this.cfg.logFile, `${content}\n`, (err) => {
+                if (err) {
+                    console.error(err);
+                };
+            }); 
         }; 
     };
 };
