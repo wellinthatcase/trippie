@@ -31,6 +31,8 @@ export interface ILogger {
 /**
  * The main logger class. Holds all configuration and the `log` method. 
  * 
+ * If the cfg is to be reassigned; no properties should be undefined. 
+ * 
  * @property cfg - An ILogger config. 
  * @method log - Log a string to standard output with one of the optional LLevel selections. 
  */
@@ -47,6 +49,12 @@ export class Logger {
         } as ILogger; 
     };
 
+    /**
+     * Log a string to standard output with one of the optiona LLevel selections. 
+     * 
+     * @param text - The text to output. 
+     * @param log_level - The LLevel selection to use. One of LLevel.Success, LLevel.Warning, LLevel.Exception
+     */
     log(text: string, log_level?: LLevel | undefined): void {
         if (this.cfg.alwaysResetter) {
             var resetter: string = this.cfg.defaultResetter;
