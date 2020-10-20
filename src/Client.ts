@@ -8,6 +8,7 @@ import { Client as DiscordClient } from "discord.js";
  * @property token - The token of the TrippieClient bot. 
  * @property botId - The snowflake identification number of the bot. 
  * @property ownerId - The snowflake identification number of who owns the application. 
+ * @property logFile - The path of the file to write debug logs to. 
  * @property postgreUrlUser - The username of the PostgreSQL database the bot must connect to. 
  * @property postgreUrlPass - The password of the aforesaid PostgreSQL database. 
  * @property postgreUrlDomain - The URL domain of the aforesaid PostgreSQL database. 
@@ -16,6 +17,7 @@ export interface TrippieCfg {
     readonly token: string;
     readonly botId: number; 
     readonly ownerId: number;
+    readonly logFile: string; 
     readonly postgreUrlUser: string, 
     readonly postgreUrlPass: string, 
     readonly postgreUrlDomain: string
@@ -36,7 +38,7 @@ export class TrippieClient extends DiscordClient {
     constructor(config: TrippieCfg) {
         super();
         this.cfg = config; 
-        this.logger = new Logger({} as ILogger); 
+        this.logger = new Logger({ "logFile": this.cfg.logFile, "alwaysLog": true } as ILogger); 
 
         const postgreUser: string = this.cfg.postgreUrlUser;
         const postgrePass: string = this.cfg.postgreUrlPass;
