@@ -11,14 +11,7 @@ client.on("message", (message) => {
     const pre: string   = con.charAt(0); 
     const arg: string[] = con.split(" ");
     const cmd: string   = con.substring(0, arg[0].length - 1); 
-
-    const context: Context = new Context(
-        cmd,
-        pre,
-        arg,
-        client,
-        message
-    );
+    const context: Context = new Context(cmd, pre, arg, client, message);
 
     client.channels.fetch("768925697057095681")
         .then(async (channel) => {
