@@ -1,11 +1,11 @@
 import cfg from "./cfg/cfg.json";
 import { Context } from "./Context";
-import { TrippieClient, TrippieCfg } from "./Client"; 
+import { TrippieClient } from "./Client"; 
 
-const client: TrippieClient = new TrippieClient(cfg as TrippieCfg); 
+const client: TrippieClient = new TrippieClient(cfg); 
 
 client.on("message", (message) => {
-    if (message.author === client.user) return;
+    if (message.author === client.user || !message.guild) return;
 
     const con: string   = message.content;
     const pre: string   = con.charAt(0); 
@@ -20,5 +20,8 @@ client.on("message", (message) => {
         message
     );
 
-    context.send(con, { embed: true }); 
+    client.channels.fetch("768925697057095681")
+        .then(async (channel) => {
+            const msg = await context.send(con, { channel: channel });
+        });
 });
