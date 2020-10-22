@@ -23,4 +23,17 @@ Besides just running `dist/Start.js`, all you really need to do is set up a cfg:
         - postgreUrlName
             - The domain of this database. 
 
+Here's a good example of the base cfg: 
+```json
+{
+    "token": "",
+    "botId": 767425062533595207,
+    "ownerId": 700091773695033505,
+    "logFile": "logs/trippie.log",
+    "postgreUrlUser": "bxukriei",
+    "postgreUrlPass": "bJvHQ88eJ50S7H5H0CXEXw0ZXz4Wy8-o",
+    "postgreUrlName": "salt.db.elephantsql.com:5432"
+}
+```
+
 Be sure you've installed the most recent version of TypeScript, then just run `tsc`. It'll transpile and set up deps. 
