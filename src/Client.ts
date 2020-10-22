@@ -20,7 +20,7 @@ export interface TrippieCfg {
     readonly logFile: string; 
     readonly postgreUrlUser: string, 
     readonly postgreUrlPass: string, 
-    readonly postgreUrlDomain: string
+    readonly postgreUrlName: string
 };
 
 /**
@@ -31,30 +31,26 @@ export interface TrippieCfg {
  * @property postgre - The PostgreSQL client for the bot. It is not connected until the bot has logged in. 
  */
 export class TrippieClient extends DiscordClient {
-    protected logger: Logger; 
-    protected cfg: TrippieCfg; 
-    protected postgre: PostgreClient;
+    readonly logger: Logger; 
+    readonly config: TrippieCfg; 
+    readonly postgre: PostgreClient;
 
     constructor(config: TrippieCfg) {
         super();
-        this.cfg = config; 
-        this.logger = new Logger({ "logFile": this.cfg.logFile, "alwaysLog": true } as ILogger); 
+        this.config = config; 
+        this.logger = new Logger({ "logFile": this.config.logFile, "alwaysLog": true } as ILogger); 
 
-        const postgreUser: string = this.cfg.postgreUrlUser;
-        const postgrePass: string = this.cfg.postgreUrlPass;
-        const postgreDomain: string = this.cfg.postgreUrlDomain; 
-        this.postgre = new PostgreClient(`postgre://${postgreUser}:${postgrePass}@${postgreDomain}/${postgreUser}`);
+        const postgreUser: string = this.config.postgreUrlUser;
+        const postgrePass: string = this.config.postgreUrlPass;
+        const postgreName: string = this.config.postgreUrlName;
+        this.postgre = new PostgreClient(`postgre://${postgreUser}:${postgrePass}@${postgreName}/${postgreUser}`);
 
-        this.postgre.connect().then(() => { 
-            this.logger.log(`Connected into PostgreSQL DB "${postgreUser}"`); 
-        }, err => {
-            console.error(err); 
-        });
+        this.postgre.connect()
+            .then(() => this.logger.log(`Connected into PostgreSQL DB "${postgreUser}"`))
+            .catch(this.logger.log);
 
-        this.login(this.cfg.token).then(() => {
-            this.logger.log(`Logged into ${this.user.username} (${this.user.id})`); 
-        }, err => { 
-            console.error(err); 
-        });
-    }
-}
+        this.login(this.config.token)
+            .then(() => this.logger.log(`Logged into ${this.user.username} (${this.user.id})`))
+            .catch(this.logger.log); 
+    };
+}; 
