@@ -22,3 +22,5 @@ Besides just running `dist/Start.js`, all you really need to do is set up a cfg:
             - The password to this database. 
         - postgreUrlName
             - The domain of this database. 
+
+Be sure you've installed the most recent version of TypeScript, then just run `tsc`. It'll transpile and set up deps. 
