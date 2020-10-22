@@ -54,7 +54,7 @@ export class Logger {
             "defaultSuccessFg": cfg.defaultSuccessFg || "\x1b[32m",
             "defaultWarningFg": cfg.defaultWarningFg || "\x1b[33m",
             "defaultExceptiFg": cfg.defaultExceptiFg || "\x1b[31m"
-        } as ILogger; 
+        }; 
     };
 
     /**
