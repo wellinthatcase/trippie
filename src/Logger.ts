@@ -1,10 +1,10 @@
-import * as fs from "fs";
+import { appendFile } from "fs";
 
 /**
  * Enum for log level options. 
  * 
- * @property Success - Will output a green color. 
- * @property Warning - Will output a yellow color. 
+ * @property Success   - Will output a green color. 
+ * @property Warning   - Will output a yellow color. 
  * @property Exception - WIll output a red color. 
  */
 export const enum LLevel {
@@ -16,10 +16,10 @@ export const enum LLevel {
 /**
  * The standard config for the Logger class. 
  * 
- * @property logFile - The file to write logs to. 
- * @property alwaysLog - Whether to always write logs to the logFile. 
- * @property alwaysResetter - Always reset the foreground after logging. 
- * @property defaultResetter - The default resetter to use. White by default.
+ * @property logFile          - The file to write logs to. 
+ * @property alwaysLog        - Whether to always write logs to the logFile. 
+ * @property alwaysResetter   - Always reset the foreground after logging. 
+ * @property defaultResetter  - The default resetter to use. White by default.
  * @property defaultSuccessFg - The default foreground when the LLevel.Success option is used.  
  * @property defaultWarningFg - The default foreground when the LLevel.Warning option is used.  
  * @property defaultExceptiFg - The default foreground when the LLevel.Exception option is used.  
@@ -40,7 +40,7 @@ export interface ILogger {
  * If the cfg is to be reassigned; no properties should be undefined. 
  * 
  * @property cfg - An ILogger config. 
- * @method log - Log a string to standard output with one of the optional LLevel selections. 
+ * @method log   - Log a string to standard output with one of the optional LLevel selections. 
  */
 export class Logger {
     public cfg: ILogger;
@@ -58,11 +58,11 @@ export class Logger {
     };
 
     /**
-     * Log a string to standard output with one of the optiona LLevel selections. 
+     * Log a string to standard output with one of the optional LLevel selections. 
      * 
-     * @param text - The text to output. 
+     * @param text      - The text to output. 
      * @param log_level - The LLevel selection to use. One of LLevel.Success, LLevel.Warning, LLevel.Exception
-     * @param write - Whether to write the log to the logFile. Overrides ILogger.alwaysLog. 
+     * @param write     - Whether to write the log to the logFile. Overrides ILogger.alwaysLog. 
      */
     log(text: string, log_level?: LLevel, write?: boolean): void {
         if (this.cfg.alwaysResetter) {
@@ -90,7 +90,7 @@ export class Logger {
         }; 
 
         if (write === true || (write === undefined && this.cfg.alwaysLog)) { 
-            fs.appendFile(this.cfg.logFile, `${content}\n`, (err) => {
+            appendFile(this.cfg.logFile, `${content}\n`, (err) => {
                 if (err) {
                     throw err; 
                 };
