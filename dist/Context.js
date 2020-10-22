@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Context = void 0;
 const discord_js_1 = require("discord.js");
+;
 class Context {
     constructor(cmd, cmd_prefix, cmdargs, bot, message) {
         this.cmd = cmd;
@@ -16,15 +17,16 @@ class Context {
         this.content = this.msg.content;
     }
     ;
-    send(message, channel, simple_embed) {
-        if (!simple_embed) {
+    send(message, options) {
+        options = options || { embed: false, channel: this.channel };
+        if (!options.embed) {
             var content = { content: message };
         }
         else {
             var content = { embed: new discord_js_1.MessageEmbed({ description: message }) };
         }
         ;
-        return (channel || this.channel).send(content).catch(console.error);
+        return (options.channel || this.channel).send(content).catch(console.error);
     }
     ;
 }
