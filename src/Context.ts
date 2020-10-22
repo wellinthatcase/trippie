@@ -25,15 +25,15 @@ export interface SendOptions {
 /**
  * Context class that holds general operations for each message related to a command.
  *
- * @property cmd - The name of the invoked command. 
- * @property msg - The message that invoked the command. 
- * @property author - The user that invoked the command. 
- * @property guild - The guild that the command was invoked in. 
- * @property prefix - The prefix that invoked the command. 
+ * @property cmd     - The name of the invoked command. 
+ * @property msg     - The message that invoked the command. 
+ * @property author  - The user that invoked the command. 
+ * @property guild   - The guild that the command was invoked in. 
+ * @property prefix  - The prefix that invoked the command. 
  * @property content - The content of the message. 
- * @property bot - This bot. 
- * @property args - The arguments invoked with the command. 
- * @property member - The member that invoked the command. 
+ * @property bot     - This bot. 
+ * @property args    - The arguments invoked with the command. 
+ * @property member  - The member that invoked the command. 
  * @property channel - The channel the command was invoked in. 
  * 
  * @method send - Shortcut to TextChannel.send where TextChannel is the `channel` parameter, or `Context.channel`. 
@@ -67,8 +67,8 @@ export class Context {
     /**
      * Send a message to a channel. 
      * 
-     * @param message - The content to send. 
-     * @param channel - The optional channel to send to. Defaults to Context.channel. 
+     * @param message      - The content to send. 
+     * @param channel      - The optional channel to send to. Defaults to Context.channel. 
      * @param simple_embed - Whether to send it in a simple embed. 
      */
     send(message: string, options?: SendOptions): Promise<Message | void> {
