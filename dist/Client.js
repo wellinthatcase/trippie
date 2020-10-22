@@ -8,22 +8,20 @@ const discord_js_1 = require("discord.js");
 class TrippieClient extends discord_js_1.Client {
     constructor(config) {
         super();
-        this.cfg = config;
-        this.logger = new Logger_1.Logger({ "logFile": this.cfg.logFile, "alwaysLog": true });
-        const postgreUser = this.cfg.postgreUrlUser;
-        const postgrePass = this.cfg.postgreUrlPass;
-        const postgreDomain = this.cfg.postgreUrlDomain;
-        this.postgre = new pg_1.Client(`postgre://${postgreUser}:${postgrePass}@${postgreDomain}/${postgreUser}`);
-        this.postgre.connect().then(() => {
-            this.logger.log(`Connected into PostgreSQL DB "${postgreUser}"`);
-        }, err => {
-            console.error(err);
-        });
-        this.login(this.cfg.token).then(() => {
-            this.logger.log(`Logged into ${this.user.username} (${this.user.id})`);
-        }, err => {
-            console.error(err);
-        });
+        this.config = config;
+        this.logger = new Logger_1.Logger({ "logFile": this.config.logFile, "alwaysLog": true });
+        const postgreUser = this.config.postgreUrlUser;
+        const postgrePass = this.config.postgreUrlPass;
+        const postgreName = this.config.postgreUrlName;
+        this.postgre = new pg_1.Client(`postgre://${postgreUser}:${postgrePass}@${postgreName}/${postgreUser}`);
+        this.postgre.connect()
+            .then(() => this.logger.log(`Connected into PostgreSQL DB "${postgreUser}"`))
+            .catch(this.logger.log);
+        this.login(this.config.token)
+            .then(() => this.logger.log(`Logged into ${this.user.username} (${this.user.id})`))
+            .catch(this.logger.log);
     }
+    ;
 }
 exports.TrippieClient = TrippieClient;
+;
