@@ -2,9 +2,9 @@ import { TrippieClient } from "./Client";
 import { 
     User, 
     Guild, 
-    Message, 
+    Message,
+    Channel, 
     DMChannel,
-    NewsChannel,
     TextChannel,
     GuildMember, 
     MessageEmbed,
@@ -18,8 +18,8 @@ import {
  * @property channel - The channel to send the message to. Defaults to the invocation channel.
  */
 export interface SendOptions {
-    embed?: boolean;
-    channel?: TextChannel | DMChannel | NewsChannel;
+    embed?: boolean | undefined;
+    channel?: TextChannel | DMChannel | Channel | undefined;
 }; 
 
 /**
@@ -48,7 +48,7 @@ export class Context {
     readonly bot: TrippieClient; 
     readonly args: Array<string>; 
     readonly member: GuildMember; 
-    readonly channel: TextChannel | DMChannel | NewsChannel;  
+    readonly channel: TextChannel;  
 
     constructor(cmd: string, cmd_prefix: string, cmdargs: Array<string>, bot: TrippieClient, message: Message) {        
         this.cmd    = cmd;
@@ -60,8 +60,8 @@ export class Context {
         this.guild   = this.msg.guild; 
         this.author  = this.msg.author;
         this.member  = this.msg.member; 
-        this.channel = this.msg.channel; 
         this.content = this.msg.content; 
+        this.channel = this.msg.channel as TextChannel; 
     };
 
     /**
@@ -71,15 +71,13 @@ export class Context {
      * @param channel      - The optional channel to send to. Defaults to Context.channel. 
      * @param simple_embed - Whether to send it in a simple embed. 
      */
-    send(message: string, options?: SendOptions): Promise<Message | void> {
-        options = options || { embed: false, channel: this.channel };
-
+    async send(message: string, options: SendOptions = {}): Promise<Message | undefined> {
         if (!options.embed) {
             var content = { content: message } as MessageOptions; 
         } else {
             var content = { embed: new MessageEmbed({ description: message }) } as MessageOptions;
         };
 
-        return (options.channel || this.channel).send(content).catch(console.error);
+        return await ((options.channel as TextChannel | DMChannel) || this.channel).send(content);
     };
 };
