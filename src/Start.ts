@@ -5,7 +5,7 @@ import { TrippieClient } from "./Client";
 const client: TrippieClient = new TrippieClient(cfg); 
 
 client.on("message", (message) => {
-    if (message.author === client.user || !message.guild) return;
+    if (message.author === client.user || !message.guild || !message.content.startsWith(">")) return;
 
     const con: string   = message.content;
     const pre: string   = con.charAt(0); 
