@@ -8,7 +8,7 @@ const Context_1 = require("./Context");
 const Client_1 = require("./Client");
 const client = new Client_1.TrippieClient(cfg_json_1.default);
 client.on("message", (message) => {
-    if (message.author === client.user || !message.guild)
+    if (message.author === client.user || !message.guild || !message.content.startsWith(">"))
         return;
     const con = message.content;
     const pre = con.charAt(0);
