@@ -18,6 +18,5 @@ client.on("message", (message) => {
     client.channels.fetch("768925697057095681")
         .then(async (channel) => {
         const msg = await context.send(con, { channel: channel });
-        console.log(msg.content);
     });
 });
