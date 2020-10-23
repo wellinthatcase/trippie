@@ -38,7 +38,7 @@ export class TrippieClient extends DiscordClient {
     constructor(config: TrippieCfg) {
         super();
         this.config = config; 
-        this.logger = new Logger({ "logFile": this.config.logFile, "alwaysLog": true } as ILogger); 
+        this.logger = new Logger({ "logFile": this.config.logFile, "alwaysLog": true }); 
 
         const postgreUser: string = this.config.postgreUrlUser;
         const postgrePass: string = this.config.postgreUrlPass;
