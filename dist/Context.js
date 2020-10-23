@@ -13,12 +13,11 @@ class Context {
         this.guild = this.msg.guild;
         this.author = this.msg.author;
         this.member = this.msg.member;
-        this.channel = this.msg.channel;
         this.content = this.msg.content;
+        this.channel = this.msg.channel;
     }
     ;
-    send(message, options) {
-        options = options || { embed: false, channel: this.channel };
+    async send(message, options = {}) {
         if (!options.embed) {
             var content = { content: message };
         }
@@ -26,7 +25,7 @@ class Context {
             var content = { embed: new discord_js_1.MessageEmbed({ description: message }) };
         }
         ;
-        return (options.channel || this.channel).send(content).catch(console.error);
+        return await (options.channel || this.channel).send(content);
     }
     ;
 }
