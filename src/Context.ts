@@ -78,6 +78,6 @@ export class Context {
             var content = { embed: new MessageEmbed({ description: message }) } as MessageOptions;
         };
 
-        return await ((options.channel as TextChannel | DMChannel) || this.channel).send(content);
+        return ((options.channel as TextChannel | DMChannel) || this.channel).send(content);
     };
 };
