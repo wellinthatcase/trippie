@@ -25,7 +25,7 @@ class Context {
             var content = { embed: new discord_js_1.MessageEmbed({ description: message }) };
         }
         ;
-        return await (options.channel || this.channel).send(content);
+        return (options.channel || this.channel).send(content);
     }
     ;
 }
