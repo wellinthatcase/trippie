@@ -18,9 +18,9 @@ interface TrippieCfg {
     readonly token: string;
     readonly logFile: string; 
     readonly ownerId: number;
-    readonly postgreUrlUser: string, 
-    readonly postgreUrlPass: string, 
-    readonly postgreUrlName: string
+    readonly postgreUrlUser: string;
+    readonly postgreUrlPass: string; 
+    readonly postgreUrlName: string;
 };
 
 /**
