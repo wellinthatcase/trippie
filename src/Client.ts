@@ -16,8 +16,8 @@ import { Client as DiscordClient } from "discord.js";
 interface TrippieCfg {
     logFile: string; 
     readonly botId: number; 
-    readonly ownerId: number;
     readonly token: string;
+    readonly ownerId: number;
     readonly postgreUrlUser: string, 
     readonly postgreUrlPass: string, 
     readonly postgreUrlName: string
