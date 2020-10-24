@@ -14,9 +14,9 @@ import { Client as DiscordClient } from "discord.js";
  * @property postgreUrlDomain - The URL domain of the aforesaid PostgreSQL database. 
  */
 interface TrippieCfg {
-    logFile: string; 
     readonly botId: number; 
     readonly token: string;
+    readonly logFile: string; 
     readonly ownerId: number;
     readonly postgreUrlUser: string, 
     readonly postgreUrlPass: string, 
