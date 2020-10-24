@@ -13,7 +13,7 @@ import { Client as DiscordClient } from "discord.js";
  * @property postgreUrlPass - The password of the aforesaid PostgreSQL database. 
  * @property postgreUrlDomain - The URL domain of the aforesaid PostgreSQL database. 
  */
-export interface TrippieCfg {
+interface TrippieCfg {
     readonly token: string;
     readonly botId: number; 
     readonly ownerId: number;
