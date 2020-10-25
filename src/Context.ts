@@ -43,14 +43,14 @@ export class Context {
     readonly msg: Message;
     readonly author: User;
     readonly guild?: Guild; 
-    readonly prefix: string; 
+    readonly prefix: string;
+    readonly args: string[];  
     readonly content: string;
     readonly bot: TrippieClient; 
-    readonly args: Array<string>; 
     readonly member: GuildMember; 
     readonly channel: TextChannel;  
 
-    constructor(cmd: string, cmd_prefix: string, cmdargs: Array<string>, bot: TrippieClient, message: Message) {        
+    constructor(cmd: string, cmd_prefix: string, cmdargs: string[], bot: TrippieClient, message: Message) {        
         this.cmd    = cmd;
         this.bot    = bot; 
         this.msg    = message; 
