@@ -71,7 +71,7 @@ export class Context {
      * @param channel      - The optional channel to send to. Defaults to Context.channel. 
      * @param simple_embed - Whether to send it in a simple embed. 
      */
-    async send(message: string, options: SendOptions = {}): Promise<Message | undefined> {
+    send(message: string, options: SendOptions = {}): Promise<Message | void> {
         if (!options.embed) {
             var content = { content: message } as MessageOptions; 
         } else {
