@@ -24,7 +24,7 @@ export const enum LLevel {
  * @property defaultWarningFg - The default foreground when the LLevel.Warning option is used.  
  * @property defaultExceptiFg - The default foreground when the LLevel.Exception option is used.  
  */
-export interface ILogger {
+interface ILogger {
     logFile?: string; 
     alwaysLog?: boolean; 
     alwaysResetter?: boolean; 
