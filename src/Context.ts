@@ -17,7 +17,7 @@ import {
  * @property embed   - Whether to send the message in a simple embed. 
  * @property channel - The channel to send the message to. Defaults to the invocation channel.
  */
-export interface SendOptions {
+interface SendOptions {
     embed?: boolean | undefined;
     channel?: TextChannel | DMChannel | Channel | undefined;
 }; 
