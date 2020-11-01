@@ -42,12 +42,13 @@ class Logger {
         }
         ;
         if (write === true || (write === undefined && this.cfg.alwaysLog)) {
-            fs_1.appendFile(this.cfg.logFile, `${content}\n`, (err) => {
+            const callback = (err) => {
                 if (err) {
-                    throw err;
+                    console.error(err);
                 }
                 ;
-            });
+            };
+            fs_1.appendFile(this.cfg.logFile, `${content}\n`, callback);
         }
         ;
     }
