@@ -1,26 +1,13 @@
-import { TrippieClient } from "./Client"; 
+import { TrippieClient as Client } from "./Client"; 
 import { 
     User, 
-    Guild, 
+    Guild,
     Message,
-    Channel, 
-    DMChannel,
     TextChannel,
-    GuildMember, 
-    MessageEmbed,
-    MessageOptions
+    MessageOptions,
+    GuildMember as Member, 
+    MessageEmbed as Embed
 } from "discord.js"; 
-
-/**
- * Options for the send method inside of the Context class. 
- * 
- * @property embed   - Whether to send the message in a simple embed. 
- * @property channel - The channel to send the message to. Defaults to the invocation channel.
- */
-interface SendOptions {
-    embed?: boolean | undefined;
-    channel?: TextChannel | DMChannel | Channel | undefined;
-}; 
 
 /**
  * Context class that holds general operations for each message related to a command.
@@ -36,31 +23,34 @@ interface SendOptions {
  * @property member  - The member that invoked the command. 
  * @property channel - The channel the command was invoked in. 
  * 
- * @method send - Shortcut to TextChannel.send where TextChannel is the `channel` parameter, or `Context.channel`. 
+ * @method send - Shortcut to TextChannel.send with an optional use_embed parameter. 
  */
 export class Context {
+    readonly bot: Client; 
     readonly cmd: string;  
     readonly msg: Message;
+    readonly args: string[];
+    readonly guild: Guild;   
     readonly author: User;
-    readonly guild?: Guild; 
     readonly prefix: string;
-    readonly args: string[];  
+    readonly member: Member; 
     readonly content: string;
-    readonly bot: TrippieClient; 
-    readonly member: GuildMember; 
     readonly channel: TextChannel;  
 
-    constructor(cmd: string, cmd_prefix: string, cmdargs: string[], bot: TrippieClient, message: Message) {        
+    constructor(message: Message, cprefix: string, bot: Client) {        
+        const cmdargs = message.content.split(" ");
+        const cmd     = cmdargs[0].substring(1);
+
         this.cmd    = cmd;
         this.bot    = bot; 
         this.msg    = message; 
         this.args   = cmdargs; 
-        this.prefix = cmd_prefix; 
+        this.prefix = cprefix; 
 
         this.guild   = this.msg.guild; 
         this.author  = this.msg.author;
         this.member  = this.msg.member; 
-        this.content = this.msg.content; 
+        this.content = this.args.slice(1).join(" "); 
         this.channel = this.msg.channel as TextChannel; 
     };
 
@@ -68,16 +58,15 @@ export class Context {
      * Send a message to a channel. 
      * 
      * @param message      - The content to send. 
-     * @param channel      - The optional channel to send to. Defaults to Context.channel. 
-     * @param simple_embed - Whether to send it in a simple embed. 
+     * @param use_embed    - Whether to send the message in a simple embed. 
      */
-    send(message: string, options: SendOptions = {}): Promise<Message | void> {
-        if (!options.embed) {
-            var content = { content: message } as MessageOptions; 
+    send(message: string, use_embed?: boolean): Promise<Message> {
+        if (!use_embed) {
+            var content: MessageOptions = { content: message } as MessageOptions; 
         } else {
-            var content = { embed: new MessageEmbed({ description: message }) } as MessageOptions;
-        };
+            var content: MessageOptions = { embed: new Embed({ description: message }) } as MessageOptions; 
+        }
 
-        return ((options.channel as TextChannel | DMChannel) || this.channel).send(content);
+        return this.channel.send(content);
     };
 };

@@ -5,12 +5,12 @@ import { Client as DiscordClient } from "discord.js";
 /**
  * The type used for a TrippieClient config. 
  * 
- * @property token - The token of the TrippieClient bot. 
- * @property botId - The snowflake identification number of the bot. 
- * @property ownerId - The snowflake identification number of who owns the application. 
- * @property logFile - The path of the file to write debug logs to. 
- * @property postgreUrlUser - The username of the PostgreSQL database the bot must connect to. 
- * @property postgreUrlPass - The password of the aforesaid PostgreSQL database. 
+ * @property token            - The token of the TrippieClient bot. 
+ * @property botId            - The snowflake identification number of the bot. 
+ * @property ownerId          - The snowflake identification number of who owns the application. 
+ * @property logFile          - The path of the file to write debug logs to. 
+ * @property postgreUrlUser   - The username of the PostgreSQL database the bot must connect to. 
+ * @property postgreUrlPass   - The password of the aforesaid PostgreSQL database. 
  * @property postgreUrlDomain - The URL domain of the aforesaid PostgreSQL database. 
  */
 interface TrippieCfg {
@@ -26,8 +26,8 @@ interface TrippieCfg {
 /**
  * The essential class for the bot. 
  * 
- * @property cfg - The local config for the bot. 
- * @property logger - The internal debug logger for the bot. 
+ * @property cfg     - The local config for the bot. 
+ * @property logger  - The internal debug logger for the bot. 
  * @property postgre - The PostgreSQL client for the bot. It is not connected until the bot has logged in. 
  */
 export class TrippieClient extends DiscordClient {
@@ -40,9 +40,9 @@ export class TrippieClient extends DiscordClient {
         this.config = config; 
         this.logger = new Logger({ "logFile": this.config.logFile, "alwaysLog": true }); 
 
-        const postgreUser: string = this.config.postgreUrlUser;
-        const postgrePass: string = this.config.postgreUrlPass;
-        const postgreName: string = this.config.postgreUrlName;
+        const postgreUser = this.config.postgreUrlUser;
+        const postgrePass = this.config.postgreUrlPass;
+        const postgreName = this.config.postgreUrlName;
         this.postgre = new PostgreClient(`postgre://${postgreUser}:${postgrePass}@${postgreName}/${postgreUser}`);
 
         this.postgre.connect()

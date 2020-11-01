@@ -1,20 +1,14 @@
 import cfg from "./cfg/cfg.json";
 import { Context } from "./Context";
+import { Message } from "discord.js"; 
 import { TrippieClient } from "./Client"; 
 
 const client: TrippieClient = new TrippieClient(cfg); 
 
-client.on("message", (message) => {
-    if (message.author === client.user || !message.guild || !message.content.startsWith(">")) return;
+client.on("message", async (msg) => {
+    if (msg.author === client.user || !msg.guild || !msg.content.startsWith(">")) 
+        return;
 
-    const con: string   = message.content;
-    const pre: string   = con.charAt(0); 
-    const arg: string[] = con.split(" ");
-    const cmd: string   = con.substring(0, arg[0].length - 1); 
-    const context: Context = new Context(cmd, pre, arg, client, message);
-
-    client.channels.fetch("768925697057095681")
-        .then(async (channel) => {
-            const msg = await context.send(con, { channel: channel });
-        });
+    const context: Context = new Context(msg, ">", client);
+    const message: Message = await context.send(context.msg.content); 
 });

@@ -90,11 +90,13 @@ export class Logger {
         }; 
 
         if (write === true || (write === undefined && this.cfg.alwaysLog)) { 
-            appendFile(this.cfg.logFile, `${content}\n`, (err) => {
+            const callback: (err: Error) => void = (err: Error) => {
                 if (err) {
-                    throw err; 
+                    console.error(err);
                 };
-            }); 
+            };
+
+            appendFile(this.cfg.logFile, `${content}\n`, callback);
         }; 
     };
 };
