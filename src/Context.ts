@@ -60,7 +60,7 @@ export class Context {
      * @param message      - The content to send. 
      * @param use_embed    - Whether to send the message in a simple embed. 
      */
-    send(message: string, use_embed?: boolean): Promise<Message> {
+    async send(message: string, use_embed?: boolean): Promise<Message> {
         if (!use_embed) {
             var content: MessageOptions = { content: message } as MessageOptions; 
         } else {
