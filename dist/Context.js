@@ -18,7 +18,7 @@ class Context {
         this.channel = this.msg.channel;
     }
     ;
-    send(message, use_embed) {
+    async send(message, use_embed) {
         if (!use_embed) {
             var content = { content: message };
         }
