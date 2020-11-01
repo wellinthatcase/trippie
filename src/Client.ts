@@ -40,9 +40,9 @@ export class TrippieClient extends DiscordClient {
         this.config = config; 
         this.logger = new Logger({ "logFile": this.config.logFile, "alwaysLog": true }); 
 
-        const postgreUser = this.config.postgreUrlUser;
-        const postgrePass = this.config.postgreUrlPass;
-        const postgreName = this.config.postgreUrlName;
+        const postgreUser: string = this.config.postgreUrlUser;
+        const postgrePass: string = this.config.postgreUrlPass;
+        const postgreName: string = this.config.postgreUrlName;
         this.postgre = new PostgreClient(`postgre://${postgreUser}:${postgrePass}@${postgreName}/${postgreUser}`);
 
         this.postgre.connect()
