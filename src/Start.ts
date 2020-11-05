@@ -1,6 +1,5 @@
 import cfg from "./cfg/cfg.json";
 import { Context } from "./Context";
-import { Message } from "discord.js"; 
 import { TrippieClient } from "./Client"; 
 import { CommandHandler } from "./Commands"; 
 
