@@ -21,8 +21,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommandHandler = exports.Command = void 0;
 const fs_1 = require("fs");
-const NO_RETUR = "NO_RETUR";
-const NO_PERMS = "NO_PERMS";
 class Command extends Object {
     constructor(ctx, desc, args, laws) {
         super();
@@ -57,7 +55,7 @@ class Command extends Object {
         }
         ;
         if (pass !== false) {
-            await this["run"](...(this.args.slice(1) || [])) || NO_RETUR;
+            await this["run"](...(this.args.slice(1) || []));
         }
         ;
     }
