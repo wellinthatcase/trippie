@@ -5,9 +5,6 @@ import {
     PermissionResolvable as Permission
 } from "discord.js";
 
-const NO_RETUR: "NO_RETUR" = "NO_RETUR";    // The Command has no return.
-const NO_PERMS: "NO_PERMS" = "NO_PERMS";    // The Invoker has insufficient permissions to run the Command. 
-
 /**
  * Information and operations about a command to help with organizing the CommandHandler. 
  * 
@@ -68,7 +65,7 @@ export class Command extends Object {
         };
 
         if (pass !== false) {
-            await this["run"](...(this.args.slice(1) || [])) || NO_RETUR;
+            await this["run"](...(this.args.slice(1) || []));
         };
     };
 };
