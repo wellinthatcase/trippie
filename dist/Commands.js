@@ -33,17 +33,33 @@ class Command extends Object {
         this.name = ctx.cmd;
     }
     ;
-    async call() {
-        let res;
-        const auth = this.ctx.member;
-        if (auth.hasPermission(this.laws) || auth.permissionsIn(this.ctx.channel)) {
-            res = (await this["run"](...(this.args.slice(1) || []))) || NO_RETUR;
-        }
-        else {
-            this.ctx.send(`${auth.displayName}, you lack the required permissions to do that.`);
+    async check(auth, law) {
+        if (auth.hasPermission(law) || law in auth.permissionsIn(this.ctx.channel)) {
+            return true;
         }
         ;
-        return res || NO_PERMS;
+    }
+    ;
+    async call() {
+        let auth = this.ctx.member;
+        if (Array.isArray(this.laws)) {
+            for (const law of this.laws) {
+                if (!(await this.check(auth, law))) {
+                    var pass = false;
+                    break;
+                }
+                ;
+            }
+            ;
+        }
+        else {
+            var pass = await this.check(auth, this.laws);
+        }
+        ;
+        if (pass !== false) {
+            await this["run"](...(this.args.slice(1) || [])) || NO_RETUR;
+        }
+        ;
     }
     ;
 }
