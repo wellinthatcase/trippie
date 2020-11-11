@@ -1,6 +1,9 @@
 import { readdir } from "fs";
 import { Context } from "./Context"; 
-import { PermissionResolvable, GuildMember } from "discord.js";
+import { 
+    GuildMember as Member,
+    PermissionResolvable as Permission
+} from "discord.js";
 
 const NO_RETUR: "NO_RETUR" = "NO_RETUR";    // The Command has no return.
 const NO_PERMS: "NO_PERMS" = "NO_PERMS";    // The Invoker has insufficient permissions to run the Command. 
@@ -21,9 +24,9 @@ export class Command extends Object {
     readonly name: string; 
     readonly desc: string; 
     readonly args: string[];
-    readonly laws: PermissionResolvable[] | PermissionResolvable; 
+    readonly laws: Array<Permission> | Permission; 
 
-    constructor(ctx: Context, desc: string, args?: string[], laws?: PermissionResolvable[] | PermissionResolvable) {
+    constructor(ctx: Context, desc: string, args?: string[], laws?: Array<Permission> | Permission) {
         super(); 
         this.ctx  = ctx; 
         this.desc = desc; 
@@ -33,19 +36,40 @@ export class Command extends Object {
     };
 
     /**
+     * Check the permissions for the command author. 
+     * 
+     * I would've made this a local function inside of this.call, however
+     * it felt redundant to re-declare the function each time a command is called (which is too often).
+     * 
+     * @param law  - The permission.
+     * @param auth - The author of the command.
+     */
+    private async check(auth: Member, law: Permission): Promise<boolean> {
+        if (auth.hasPermission(law) || (law as string) in auth.permissionsIn(this.ctx.channel)) {
+            return true;
+        };
+    };
+
+    /**
      * Call this command. 
      */
-    async call(): Promise<any | typeof NO_RETUR | typeof NO_PERMS> {
-        let res: any | typeof NO_RETUR; 
-        const auth: GuildMember = this.ctx.member;
+    async call(): Promise<void> {
+        let auth: Member = this.ctx.member;
 
-        if (auth.hasPermission(this.laws) || auth.permissionsIn(this.ctx.channel)) {
-            res = (await this["run"](...(this.args.slice(1) || []))) || NO_RETUR;
+        if (Array.isArray(this.laws)) {
+            for (const law of this.laws) {
+                if (!(await this.check(auth, law))) {
+                    var pass: boolean = false;
+                    break;
+                };
+            };
         } else {
-            this.ctx.send(`${auth.displayName}, you lack the required permissions to do that.`); 
+            var pass: boolean = await this.check(auth, this.laws);
         };
-        
-        return res || NO_PERMS; 
+
+        if (pass !== false) {
+            await this["run"](...(this.args.slice(1) || [])) || NO_RETUR;
+        };
     };
 };
 
